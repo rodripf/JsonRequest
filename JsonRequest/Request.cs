@@ -22,6 +22,17 @@ namespace JsonRequest
         public String Verb { get; set; }
 
         /// <summary>
+        /// HttpWebRequest timeout in ms. Default is 100000ms.
+        /// </summary>
+        private int timeout = 100000;
+
+        public int Timeout
+        {
+            get { return timeout; }
+            set { timeout = value; }
+        }
+
+        /// <summary>
         /// Request content, Json by default.
         /// </summary>
         public String Content
@@ -193,6 +204,7 @@ namespace JsonRequest
             basicRequest.ContentType = Content;
             basicRequest.Method = Verb;
             basicRequest.CookieContainer = CookieContainer;
+            basicRequest.Timeout = timeout;
 
             if (Credentials != null)
                 basicRequest.Headers.Add("Authorization", "Basic" + " " + EncodeCredentials(Credentials));
